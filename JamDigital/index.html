@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Clock UI Design</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="clock">
+        <h2>Sekarang Pukul</h2>
+        <div id="time">
+            <div><span id="hour">00</span><span>Hours</span></div>
+            <div><span id="minutes">00</span><span>Minutes</span></div>
+            <div><span id="seconds">00</span><span>Seconds</span></div>
+            <div><span id="ampm"></span></div>
+        </div>
+        <div id="date"></div>
+    </div>
+    <script type="text/javascript">
+        function clock() {
+
+            var hours = document.getElementById('hour');
+            var minutes = document.getElementById('minutes');
+            var seconds = document.getElementById('seconds');
+            var ampm = document.getElementById('ampm');
+
+            var h = new Date().getHours();
+            var m = new Date().getMinutes();
+            var s = new Date().getSeconds();
+            var am = "AM";
+
+            if (h > 12) {
+                h = h - 12;
+                var am = "PM"
+            }
+            h = (h < 10) ? "0" + h : h
+            m = (m < 10) ? "0" + m : m
+            s = (s < 10) ? "0" + s : s
+
+            hours.innerHTML = h;
+            minutes.innerHTML = m;
+            seconds.innerHTML = s;
+            ampm.innerHTML = am
+        }
+
+        var interval = setInterval(clock, 1000);
+
+        function formatDate() {
+            const now = new Date();
+            const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+            const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September",
+            "October", "November", "December"];
+
+            const dayName = days[now.getDay()];
+            const date = now.getDate();
+            const monthName =  months[now.getMonth()];
+            const year = now.getFullYear();
+
+            //Add suffix (st, nd, rd, th)
+            let suffix ="th";
+            if (date % 100 >= 11 && date % 100 <= 13) {
+                suffix ="th";
+            } else if (date % 10 === 1) {
+                suffix ="st";
+            } else if (date % 10 === 2) {
+                suffix ="nd";
+            } else if (date % 10 === 3) {
+                suffix ="rd";
+            }
+
+            const formattedDate = `${dayName} ${date}${suffix} of ${monthName}, ${year}`;
+            document.getElementById("date").innerText = formattedDate;
+        }
+        
+        formatDate();
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,253 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #f5d8e6 0%, #d2e9ff 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.container {
+    position: relative;
+    width: 100%;
+    max-width: 450px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    padding: 40px 30px;
+}
+
+/* Dekorasi lingkaran */
+.decoration {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.circle {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.3;
+}
+
+.circle-1 {
+    width: 100px;
+    height: 100px;
+    background: #ff7eb9;
+    top: -30px;
+    left: -30px;
+}
+
+.circle-2 {
+    width: 150px;
+    height: 150px;
+    background: #7cc6fe;
+    bottom: -50px;
+    right: -50px;
+}
+
+.circle-3 {
+    width: 70px;
+    height: 70px;
+    background: #ffcc67;
+    top: 40%;
+    left: 80%;
+}
+
+.circle-4 {
+    width: 50px;
+    height: 50px;
+    background: #7cc6fe;
+    bottom: 30%;
+    left: 10%;
+}
+
+.circle-5 {
+    width: 80px;
+    height: 80px;
+    background: #ff7eb9;
+    top: 70%;
+    left: 5%;
+}
+
+.forms-container {
+    position: relative;
+    z-index: 1;
+}
+
+.form-login, .form-register {
+    transition: all 0.3s ease;
+}
+
+.hidden {
+    display: none;
+}
+
+h2 {
+    text-align: center;
+    color: #ff6b9d;
+    margin-bottom: 25px;
+    font-size: 28px;
+    font-weight: 600;
+}
+
+.input-group {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.input-group i {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #ff6b9d;
+    font-size: 18px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 15px 15px 15px 45px;
+    border: 2px solid #e6e6e6;
+    border-radius: 12px;
+    font-size: 16px;
+    color: #555;
+    transition: all 0.3s ease;
+    background: #fff;
+}
+
+.input-group input:focus {
+    border-color: #7cc6fe;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(124, 198, 254, 0.2);
+}
+
+.remember-forgot {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+.remember-forgot label {
+    display: flex;
+    align-items: center;
+    color: #666;
+    cursor: pointer;
+}
+
+.remember-forgot input {
+    margin-right: 8px;
+    accent-color: #ff6b9d;
+}
+
+.remember-forgot a {
+    color: #7cc6fe;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.remember-forgot a:hover {
+    color: #ff6b9d;
+    text-decoration: underline;
+}
+
+.terms {
+    margin-bottom: 20px;
+    font-size: 14px;
+    color: #666;
+}
+
+.terms label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.terms input {
+    margin-right: 8px;
+    accent-color: #ff6b9d;
+}
+
+.terms a {
+    color: #7cc6fe;
+    text-decoration: none;
+}
+
+.terms a:hover {
+    text-decoration: underline;
+}
+
+.btn {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(45deg, #ff6b9d, #ff8eb4);
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(255, 107, 157, 0.3);
+}
+
+.btn:hover {
+    background: linear-gradient(45deg, #ff8eb4, #ff6b9d);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 107, 157, 0.4);
+}
+
+.switch-form {
+    text-align: center;
+    margin-top: 20px;
+    color: #666;
+    font-size: 14px;
+}
+
+.switch-form a {
+    color: #7cc6fe;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.switch-form a:hover {
+    color: #ff6b9d;
+    text-decoration: underline;
+}
+
+/* Responsive design */
+@media (max-width: 480px) {
+    .container {
+        padding: 30px 20px;
+    }
+    
+    h2 {
+        font-size: 24px;
+    }
+    
+    .input-group input {
+        padding: 12px 12px 12px 40px;
+    }
+    
+    .remember-forgot {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+}

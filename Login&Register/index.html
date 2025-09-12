@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login & Register - Tema Lucu</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Dekorasi background -->
+        <div class="decoration">
+            <div class="circle circle-1"></div>
+            <div class="circle circle-2"></div>
+            <div class="circle circle-3"></div>
+            <div class="circle circle-4"></div>
+            <div class="circle circle-5"></div>
+        </div>
+
+        <div class="forms-container">
+            <!-- Form Login -->
+            <div class="form-login">
+                <form class="login-form">
+                    <h2>Masuk ke Akun Anda</h2>
+                    <div class="input-group">
+                        <i class="fas fa-user"></i>
+                        <input type="text" placeholder="Nama Pengguna" required>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" placeholder="Kata Sandi" required>
+                    </div>
+                    <div class="remember-forgot">
+                        <label>
+                            <input type="checkbox">
+                            <span>Ingat saya</span>
+                        </label>
+                        <a href="#">Lupa kata sandi?</a>
+                    </div>
+                    <button type="submit" class="btn">Masuk</button>
+                    <p class="switch-form">
+                        Tidak punya akun? <a href="#" id="show-register">Daftar di sini</a>
+                    </p>
+                </form>
+            </div>
+
+            <!-- Form Register -->
+            <div class="form-register hidden">
+                <form class="register-form">
+                    <h2>Buat Akun Baru</h2>
+                    <div class="input-group">
+                        <i class="fas fa-user"></i>
+                        <input type="text" placeholder="Nama Lengkap" required>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" placeholder="Email" required>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" placeholder="Kata Sandi" required>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" placeholder="Konfirmasi Kata Sandi" required>
+                    </div>
+                    <div class="terms">
+                        <label>
+                            <input type="checkbox" required>
+                            <span>Saya menyetujui <a href="#">Syarat & Ketentuan</a></span>
+                        </label>
+                    </div>
+                    <button type="submit" class="btn">Daftar</button>
+                    <p class="switch-form">
+                        Sudah punya akun? <a href="#" id="show-login">Masuk di sini</a>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const loginForm = document.querySelector('.form-login');
+            const registerForm = document.querySelector('.form-register');
+            const showRegister = document.getElementById('show-register');
+            const showLogin = document.getElementById('show-login');
+            
+            showRegister.addEventListener('click', function(e) {
+                e.preventDefault();
+                loginForm.classList.add('hidden');
+                registerForm.classList.remove('hidden');
+            });
+            
+            showLogin.addEventListener('click', function(e) {
+                e.preventDefault();
+                registerForm.classList.add('hidden');
+                loginForm.classList.remove('hidden');
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aplikasi To-Do List</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>To-Do List Saya</h1>
+            <p>Kelola tugas harian Anda dengan mudah</p>
+        </header>
+        
+        <div class="input-section">
+            <input type="text" id="taskInput" placeholder="Tambahkan tugas baru...">
+            <button id="addTaskBtn">Tambah</button>
+        </div>
+        
+        <div class="filters">
+            <button class="filter-btn active" data-filter="all">Semua</button>
+            <button class="filter-btn" data-filter="active">Aktif</button>
+            <button class="filter-btn" data-filter="completed">Selesai</button>
+        </div>
+        
+        <ul id="taskList">
+            <!-- Daftar tugas akan ditambahkan di sini oleh JavaScript -->
+        </ul>
+        
+        <div class="task-stats">
+            <span id="tasksRemaining">0 tugas tersisa</span>
+            <button id="clearCompleted">Hapus yang selesai</button>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript akan ditambahkan di sini
+        document.addEventListener('DOMContentLoaded', function() {
+            const taskInput = document.getElementById('taskInput');
+            const addTaskBtn = document.getElementById('addTaskBtn');
+            const taskList = document.getElementById('taskList');
+            const tasksRemaining = document.getElementById('tasksRemaining');
+            const clearCompleted = document.getElementById('clearCompleted');
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            
+            let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+            let currentFilter = 'all';
+            
+            // Render tasks berdasarkan filter
+            function renderTasks() {
+                taskList.innerHTML = '';
+                let filteredTasks = tasks;
+                
+                if (currentFilter === 'active') {
+                    filteredTasks = tasks.filter(task => !task.completed);
+                } else if (currentFilter === 'completed') {
+                    filteredTasks = tasks.filter(task => task.completed);
+                }
+                
+                filteredTasks.forEach((task, index) => {
+                    const li = document.createElement('li');
+                    li.className = task.completed ? 'completed' : '';
+                    
+                    li.innerHTML = `
+                        <span class="task-text">${task.text}</span>
+                        <div class="task-actions">
+                            <button class="complete-btn">${task.completed ? 'Batal' : 'Selesai'}</button>
+                            <button class="delete-btn">Hapus</button>
+                        </div>
+                    `;
+                    
+                    // Toggle status selesai
+                    li.querySelector('.complete-btn').addEventListener('click', () => {
+                        toggleComplete(index);
+                    });
+                    
+                    // Hapus task
+                    li.querySelector('.delete-btn').addEventListener('click', () => {
+                        deleteTask(index);
+                    });
+                    
+                    taskList.appendChild(li);
+                });
+                
+                updateStats();
+            }
+            
+            // Tambah task baru
+            function addTask() {
+                const text = taskInput.value.trim();
+                if (text) {
+                    tasks.push({ text, completed: false });
+                    taskInput.value = '';
+                    saveTasks();
+                    renderTasks();
+                }
+            }
+            
+            // Toggle status selesai
+            function toggleComplete(index) {
+                // Cari index yang benar berdasarkan filter
+                let realIndex;
+                if (currentFilter === 'all') {
+                    realIndex = index;
+                } else {
+                    const task = tasks.find((t, i) => {
+                        if (currentFilter === 'active') return !t.completed;
+                        if (currentFilter === 'completed') return t.completed;
+                    });
+                    realIndex = tasks.indexOf(task);
+                }
+                
+                tasks[realIndex].completed = !tasks[realIndex].completed;
+                saveTasks();
+                renderTasks();
+            }
+            
+            // Hapus task
+            function deleteTask(index) {
+                // Cari index yang benar berdasarkan filter
+                let realIndex;
+                if (currentFilter === 'all') {
+                    realIndex = index;
+                } else {
+                    const task = tasks[index];
+                    realIndex = tasks.findIndex(t => t.text === task.text && t.completed === task.completed);
+                }
+                
+                tasks.splice(realIndex, 1);
+                saveTasks();
+                renderTasks();
+            }
+            
+            // Hapus semua task yang selesai
+            function clearCompletedTasks() {
+                tasks = tasks.filter(task => !task.completed);
+                saveTasks();
+                renderTasks();
+            }
+            
+            // Update statistik
+            function updateStats() {
+                const remaining = tasks.filter(task => !task.completed).length;
+                tasksRemaining.textContent = `${remaining} tugas tersisa`;
+            }
+            
+            // Simpan tasks ke localStorage
+            function saveTasks() {
+                localStorage.setItem('tasks', JSON.stringify(tasks));
+            }
+            
+            // Event listeners
+            addTaskBtn.addEventListener('click', addTask);
+            taskInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') addTask();
+            });
+            
+            clearCompleted.addEventListener('click', clearCompletedTasks);
+            
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    currentFilter = btn.dataset.filter;
+                    renderTasks();
+                });
+            });
+            
+            // Render tasks awal
+            renderTasks();
+        });
+    </script>
+</body>
+</html>
